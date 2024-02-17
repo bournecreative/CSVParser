@@ -24,23 +24,17 @@
       const sendFiles = async () => {
         const info1 = document.querySelector(".data1");
         const info2 = document.querySelector(".data2");
-        try {
-          const myFiles = document.getElementById("myFiles").files;
-          const formData = new FormData();
-          formData.append(myFiles.item(0)?.name, myFiles.item(0));
-          const response = await fetch("http://localhost:3000/upload", {
-            method: "POST",
-            body: formData,
-          });
+        const myFiles = document.getElementById("myFiles").files;
+        const formData = new FormData();
+        formData.append(myFiles.item(0)?.name, myFiles.item(0));
+        const response = await fetch("http://localhost:3000/upload", {
+          method: "POST",
+          body: formData,
+        });
 
-          const json = await response.json();
-
-          info1.textContent = json?.status;
-          info2.textContent = json?.message;
-        } catch (error) {
-          info1.textContent = "Error";
-          info2.textContent = error;
-        }
+        const json = await response.json();
+        info1.textContent = json?.status;
+        info2.textContent = json?.message;
       };
 
       form.addEventListener("submit", (e) => {
