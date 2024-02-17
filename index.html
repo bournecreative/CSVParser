@@ -22,21 +22,25 @@
       const form = document.getElementById("formLoader");
 
       const sendFiles = async () => {
-        const myFiles = document.getElementById("myFiles").files;
-        const formData = new FormData();
-        formData.append(myFiles.item(0).name, myFiles.item(0));
-
-        console.log("should be form", formData);
-        const response = await fetch("http://localhost:3000/upload", {
-          method: "POST",
-          body: formData,
-        });
-        const json = await response.json();
-        console.log(json);
         const info1 = document.querySelector(".data1");
         const info2 = document.querySelector(".data2");
-        info1.textContent = json?.status;
-        info2.textContent = json?.message;
+        try {
+          const myFiles = document.getElementById("myFiles").files;
+          const formData = new FormData();
+          formData.append(myFiles.item(0)?.name, myFiles.item(0));
+          const response = await fetch("http://localhost:3000/upload", {
+            method: "POST",
+            body: formData,
+          });
+
+          const json = await response.json();
+
+          info1.textContent = json?.status;
+          info2.textContent = json?.message;
+        } catch (error) {
+          info1.textContent = "Error";
+          info2.textContent = error;
+        }
       };
 
       form.addEventListener("submit", (e) => {
