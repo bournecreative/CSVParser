@@ -3,27 +3,100 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CSV Parser</title>
+    <title>CSV Upload</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        background-color: hsl(208, 8%, 63%);
+        font-size: 16px;
+      }
+
+      .container {
+        align-items: center;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+      }
+
+      .upload-container {
+        border-radius: 20px;
+        box-shadow: 0 6px 20px 2px #4c555e;
+        display: flex;
+        background-color: #fff;
+        flex-direction: column;
+        min-height: 60%;
+        padding: 12px;
+        width: 50%;
+      }
+
+      .upload-container h1 {
+        font-size: 24px;
+        margin: 0;
+      }
+
+      .upload-form {
+        padding: 12px;
+      }
+
+      .upload-form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+      }
+      .upload-form-group label {
+        margin-bottom: 4px;
+      }
+
+      input::file-selector-button {
+        display: flex;
+      }
+
+      .upload-status-msg {
+        padding: 12px;
+      }
+      .upload-status {
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .upload-message {
+        font-size: 12px;
+        font-weight: 100;
+      }
+    </style>
   </head>
   <body>
-    <div>
-      <h1>CSV Parser</h1>
-      <form id="formLoader" enctype="multipart/form-data">
-        <label for="myFiles">Select CSV</label>
-        <input type="file" id="myFiles" accept=".csv" />
-        <button>Upload</button>
-      </form>
-    </div>
-    <div id="result">
-      <span class="data1"></span>
-      <span class="data2"></span>
+    <div class="container">
+      <div class="upload-container">
+        <h1>Upload and attach files</h1>
+        <p>Upload and attach files to this project</p>
+        <form class="upload-form" id="formLoader" enctype="multipart/form-data">
+          <div class="upload-form-group">
+            <label for="myFiles">Select file</label>
+            <input type="file" id="myFiles" accept=".csv" />
+          </div>
+          <button>Attach File</button>
+        </form>
+        <div class="upload-status-msg">
+          <span class="upload-status"></span>
+          <span class="upload-message"></span>
+        </div>
+      </div>
     </div>
     <script>
       const form = document.getElementById("formLoader");
 
       const sendFiles = async () => {
-        const info1 = document.querySelector(".data1");
-        const info2 = document.querySelector(".data2");
+        const info1 = document.querySelector(".upload-status");
+        const info2 = document.querySelector(".upload-message");
         const myFiles = document.getElementById("myFiles").files;
         const formData = new FormData();
         formData.append(myFiles.item(0)?.name, myFiles.item(0));
