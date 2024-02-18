@@ -1,0 +1,63 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background-color: hsl(208, 8%, 63%);
+  font-size: 16px;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+
+.upload-container {
+  border-radius: 20px;
+  box-shadow: 0 6px 20px 2px #4c555e;
+  display: flex;
+  background-color: #fff;
+  flex-direction: column;
+  min-height: 60%;
+  padding: 12px;
+  width: 50%;
+}
+.upload-container h1 {
+  font-size: 24px;
+  margin: 0;
+}
+.upload-container .upload-form {
+  padding: 12px;
+}
+.upload-container .upload-form .upload-form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.upload-container .upload-form .upload-form-group label {
+  margin-bottom: 4px;
+}
+.upload-container .upload-form input::file-selector-button {
+  display: flex;
+}
+.upload-container .upload-status-msg {
+  padding: 12px;
+}
+.upload-container .upload-status-msg .upload-status {
+  font-size: 20px;
+  font-weight: bold;
+}
+.upload-container .upload-status-msg .upload-message {
+  font-size: 12px;
+  font-weight: 100;
+}
+
+/*# sourceMappingURL=main.css.map */

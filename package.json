@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon --watch ./index.js"
+    "server": "nodemon ./index.js",
+    "dev": "nodemon . & npm run scss",
+    "scss": "sass --watch styles/scss/main.scss public/styles/main.css"
   },
   "keywords": [],
   "author": "",
@@ -12,7 +14,8 @@
   "dependencies": {
     "csv-parse": "^5.5.3",
     "express": "^4.18.2",
-    "express-fileupload": "^1.4.3"
+    "express-fileupload": "^1.4.3",
+    "sass": "^1.71.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.3"
