@@ -12,6 +12,6 @@ Using Node/Express build a backend that will enable a user to upload CSV files, 
 - [x] create middleware to reject if not file data is submitted. Provide messaging to user
 - [x] organize express into seperate routes
 - [x] incorporate scss for styling and config index.html to work with static assets served from server
-- [ ] parse CSV data into UI
+- [x] parse CSV data into UI
 - [ ] Build modern UI that is responsive and clear
 - [ ] config nodemon so all working files reflect changes during development
