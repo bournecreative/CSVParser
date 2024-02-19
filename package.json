@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "nodemon ./index.js",
-    "dev": "nodemon . & npm run scss",
+    "dev": "nodemon . -e html,js & npm run scss",
     "scss": "sass --watch styles/scss/main.scss public/styles/main.css"
   },
   "keywords": [],
