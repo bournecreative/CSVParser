@@ -16,7 +16,8 @@
             <label for="myFiles">Select file</label>
             <input type="file" id="myFiles" accept=".csv" />
           </div>
-          <button>Attach File</button>
+          <button type="submit">Attach File</button>
+          <button type="button" class="upload-button-discard">Discard</button>
         </form>
         <div class="upload-status-msg">
           <span class="upload-status"></span>
@@ -25,28 +26,43 @@
       </div>
     </div>
     <script>
-      const form = document.getElementById("formLoader");
+      (function () {
+        window.onload = () => {
+          const form = document.getElementById("formLoader");
+          const fileLoader = document.getElementById("myFiles");
+          const discardButton = document.querySelector(
+            ".upload-button-discard"
+          );
 
-      const sendFiles = async () => {
-        const info1 = document.querySelector(".upload-status");
-        const info2 = document.querySelector(".upload-message");
-        const myFiles = document.getElementById("myFiles").files;
-        const formData = new FormData();
-        formData.append(myFiles.item(0)?.name, myFiles.item(0));
-        const response = await fetch("http://localhost:3000/upload", {
-          method: "POST",
-          body: formData,
-        });
+          const sendFiles = async () => {
+            const info1 = document.querySelector(".upload-status");
+            const info2 = document.querySelector(".upload-message");
+            const myFiles = document.getElementById("myFiles").files;
+            const formData = new FormData();
+            formData.append(myFiles.item(0)?.name, myFiles.item(0));
 
-        const json = await response.json();
-        info1.textContent = json?.status;
-        info2.textContent = json?.message;
-      };
+            const response = await fetch("http://localhost:3000/upload", {
+              method: "POST",
+              body: formData,
+            });
 
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        sendFiles();
-      });
+            const json = await response.json();
+            info1.textContent = json?.status;
+            info2.textContent = json?.message;
+          };
+
+          const discardFile = () => {
+            fileLoader.value = "";
+          };
+
+          discardButton.addEventListener("click", discardFile);
+
+          form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            sendFiles();
+          });
+        };
+      })();
     </script>
   </body>
 </html>
