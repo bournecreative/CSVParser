@@ -2,7 +2,7 @@
 
 Using Node/Express build a backend that will enable a user to upload CSV files, parse them and display the parsed data in the UI.
 
-![screen capture of implementation](./READMEassets/ui-design.png)
+![screen capture of implementation](./READMEassets/demo.gif)
 
 ## Objectives
 
