@@ -4,61 +4,150 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CSV Upload</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/assets/styles/main.css" />
   </head>
   <body>
     <div class="container">
       <div class="upload-container">
-        <h1>Upload and attach files</h1>
-        <p>Upload and attach files to this project</p>
+        <header class="upload-heading">
+          <h1>Upload and attach files</h1>
+          <p>
+            Attachments successfully attached will be parsed in the adjacent
+            table.
+          </p>
+        </header>
         <form class="upload-form" id="formLoader" enctype="multipart/form-data">
-          <div class="upload-form-group">
-            <label for="myFiles">Select file</label>
-            <input type="file" id="myFiles" accept=".csv" />
+          <div class="upload-target">
+            <label for="uploader"
+              ><span class="uploader-text-primary">Click to Upload</span>
+              <span class="uploader-text-secondary">or drag and drop</span
+              ><br /><span class="uploader-text-light"
+                >(Max. File size: 5MB)</span
+              ></label
+            >
+
+            <input id="uploader" class="upload-input" type="file" />
           </div>
-          <button type="submit">Attach File</button>
-          <button type="button" class="upload-button-discard">Discard</button>
+          <div class="upload-buttons">
+            <button
+              type="button"
+              class="buttons upload-button-secondary discard"
+            >
+              Discard
+            </button>
+            <button type="submit" class="buttons upload-button-primary submit">
+              Attach File
+            </button>
+          </div>
         </form>
-        <div class="upload-status-msg">
-          <span class="upload-status"></span>
-          <span class="upload-message"></span>
-        </div>
+        <div class="attachment"></div>
       </div>
+      <div class="upload-response"></div>
     </div>
     <script>
       (function () {
         window.onload = () => {
           const form = document.getElementById("formLoader");
-          const fileLoader = document.getElementById("myFiles");
-          const discardButton = document.querySelector(
-            ".upload-button-discard"
-          );
+          const inputLoader = document.getElementById("uploader");
+          const discardButton = document.querySelector(".discard");
+          const attachment = document.querySelector(".attachment");
+          const responseEle = document.querySelector(".upload-response");
+
+          function handleChange(e) {
+            event.preventDefault();
+            event.stopPropagation();
+            if (e.target.files[0]) {
+              generateAttachment();
+            }
+          }
+
+          const handleDiscard = () => {
+            discardAttachment();
+          };
 
           const sendFiles = async () => {
-            const info1 = document.querySelector(".upload-status");
-            const info2 = document.querySelector(".upload-message");
-            const myFiles = document.getElementById("myFiles").files;
+            const myFile = inputLoader.files;
             const formData = new FormData();
-            formData.append(myFiles.item(0)?.name, myFiles.item(0));
+            formData.append(myFile.item(0)?.name, myFile.item(0));
 
             const response = await fetch("http://localhost:3000/upload", {
               method: "POST",
               body: formData,
             });
 
-            const json = await response.json();
-            info1.textContent = json?.status;
-            info2.textContent = json?.message;
+            const json = await response?.json();
+
+            if (json?.status === "error") {
+              generateErrorEle(json?.status, json?.message);
+            } else {
+              generateResponse(json?.message);
+            }
           };
 
-          const discardFile = () => {
-            fileLoader.value = "";
-          };
+          function generateAttachment() {
+            const container = document.createElement("div");
+            const textContainer = document.createElement("div");
+            const icon = document.createElement("span");
+            const title = document.createElement("h3");
+            const detail = document.createElement("span");
+            container.setAttribute("class", "attachment-msg");
+            icon.setAttribute("class", "icon");
+            detail.textContent = `${inputLoader.files[0].name}`;
+            title.textContent = "Upload Completed";
+            attachment.appendChild(container);
+            container.appendChild(icon);
+            container.appendChild(textContainer);
+            textContainer.appendChild(title);
+            textContainer.appendChild(detail);
+          }
 
-          discardButton.addEventListener("click", discardFile);
+          function generateErrorEle(status, message) {
+            const container = document.createElement("div");
+            const title = document.createElement("span");
+            const detail = document.createElement("p");
+            container.setAttribute("class", "upload-response-error");
+            title.textContent = status;
+            detail.textContent = message;
+            responseEle.appendChild(container);
+            container.appendChild(title);
+            container.appendChild(detail);
+          }
+
+          function generateResponse(message) {
+            const container = document.createElement("div");
+            container.setAttribute("class", "upload-response-content");
+            const code = document.createElement("code");
+            responseEle.appendChild(container);
+            code.textContent = JSON.stringify(message, null, 2);
+            container.appendChild(code);
+          }
+
+          function discardAttachment() {
+            const target = document.querySelector(".attachment-msg");
+            if (target) {
+              attachment.removeChild(target);
+            }
+          }
+
+          function discardErrorResponse() {
+            const target = responseEle.firstChild;
+            if (target) {
+              responseEle.removeChild(target);
+            }
+          }
+
+          inputLoader.addEventListener("change", handleChange);
+          discardButton.addEventListener("click", handleDiscard);
 
           form.addEventListener("submit", (e) => {
             e.preventDefault();
+            discardErrorResponse();
             sendFiles();
           });
         };
