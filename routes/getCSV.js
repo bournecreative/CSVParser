@@ -18,12 +18,19 @@ router.post(
     const filePath = path.join(__dirname, "../files", uploadedFile.name);
     uploadedFile.mv(filePath, (err) => {
       if (err) return res.status(500).json({ status: "error", message: err });
+
       csvToJSON()
         .fromFile(filePath)
         .then((jsonObj) => {
           res.json({
             status: "success",
             message: `${JSON.stringify(jsonObj)}`,
+          });
+        })
+        .catch((err) => {
+          res.json({
+            status: "error",
+            message: err,
           });
         });
     });
