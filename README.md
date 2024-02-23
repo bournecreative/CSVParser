@@ -2,6 +2,8 @@
 
 Using Node/Express build a backend that will enable a user to upload CSV files, parse them and display the parsed data in the UI.
 
+![screen capture of implementation](./READMEassets/ui-design.png)
+
 ## Objectives
 
 - [x] endpoint to serve html page with a form that will allow a user to select CSV files and submit the target file
@@ -13,5 +15,5 @@ Using Node/Express build a backend that will enable a user to upload CSV files, 
 - [x] organize express into seperate routes
 - [x] incorporate scss for styling and config index.html to work with static assets served from server
 - [x] parse CSV data into UI
-- [ ] Build modern UI that is responsive and clear
+- [wip] Build modern UI that is responsive and clear
 - [ ] config nodemon so all working files reflect changes during development
