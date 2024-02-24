@@ -1,11 +1,12 @@
 # Upload and Parse CSVs
 
-**Project Focus**
+### Project Focus
+
 Build a backend with Node/Express to enable a user to upload a CSV under 5MB, parse the CSV and display in the UI.
 
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=nodejs,express,js,html,css,sass" />
+    <img src="https://skillicons.dev/icons?i=nodejs,express,js,html,sass" />
   </a>
 </p>
 
@@ -43,4 +44,7 @@ Status of tasks to work through
 - [x] Better description of project objective in readme
 - [] Parse out the returned JSON into a table that looks good
 - [] Improve ui state when dragging items into drop target
+- [] Create a skeleton overlay for the content section while processing CSV
 - [] Improve iconography for error messages and chart
+- [] Add loading symbol to button to show processing for large csv files
+- [] Show progress bar for csv processing
