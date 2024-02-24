@@ -7,8 +7,8 @@
     const responseEle = document.querySelector(".upload-response");
 
     function handleChange(e) {
-      event.preventDefault();
-      event.stopPropagation();
+      e.preventDefault();
+      e.stopPropagation();
       if (e.target.files[0]) {
         generateAttachment();
       }
@@ -23,7 +23,7 @@
       const formData = new FormData();
       formData.append(myFile.item(0)?.name, myFile.item(0));
 
-      const response = await fetch("http://localhost:3000/upload", {
+      const response = await fetch("/upload", {
         method: "POST",
         body: formData,
       });
