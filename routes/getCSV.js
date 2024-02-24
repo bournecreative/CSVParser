@@ -1,6 +1,7 @@
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const csvToJSON = require("csvtojson");
+const fs = require("fs");
 const path = require("path");
 const router = express.Router();
 const payloadExists = require("../middleware/payloadExists");
@@ -18,7 +19,6 @@ router.post(
     const filePath = path.join(__dirname, "../files", uploadedFile.name);
     uploadedFile.mv(filePath, (err) => {
       if (err) return res.status(500).json({ status: "error", message: err });
-
       csvToJSON()
         .fromFile(filePath)
         .then((jsonObj) => {
@@ -31,6 +31,14 @@ router.post(
           res.json({
             status: "error",
             message: err,
+          });
+        })
+        .finally(() => {
+          fs.unlink(filePath, (err) => {
+            if (err) {
+              console.error(err);
+              return;
+            }
           });
         });
     });
