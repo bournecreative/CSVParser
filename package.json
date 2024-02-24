@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "18.16.0",
+    "npm": "9.5.1"
+  },
   "scripts": {
     "server": "nodemon ./index.js",
     "dev": "nodemon . -e html,js & npm run scss",
