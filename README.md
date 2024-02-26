@@ -22,11 +22,7 @@ Build a backend with Node/Express to enable a user to upload a CSV under 5MB, pa
 - Use plain JavaScript for UI
 - App design is basic but responsive
 
-# Demo Link
-
-[csv-demo-link-parser](https://csvparser-8ogk.onrender.com/)
-
-## Preview
+## Preview of current implementation
 
 ![screen capture of implementation](./READMEassets/demo.gif)
 
@@ -34,6 +30,14 @@ Build a backend with Node/Express to enable a user to upload a CSV under 5MB, pa
 
 Status of tasks to work through
 
+- [ ] Implement new design
+- [ ] Parse out the returned JSON into a table that looks good
+- [ ] Improve ui state when dragging items into drop target
+- [ ] Create a skeleton overlay for the content section while processing CSV
+- [ ] Improve iconography for error messages and chart
+- [ ] Add loading symbol to button to show processing for large csv files
+- [ ] Show progress bar for csv processing
+- [x] Design a better looking layout that will work better for mobile
 - [x] endpoint to serve html page with a form that will allow a user to select CSV files and submit the target file
 - [x] upload endpoint to capture CSV request
 - [x] parse CSV buffer into CSV file and save to server
@@ -46,9 +50,9 @@ Status of tasks to work through
 - [x] Incorporate drag and drop into UI
 - [x] Build modern UI that is responsive and clear - phase I
 - [x] Better description of project objective in readme
-- [] Parse out the returned JSON into a table that looks good
-- [] Improve ui state when dragging items into drop target
-- [] Create a skeleton overlay for the content section while processing CSV
-- [] Improve iconography for error messages and chart
-- [] Add loading symbol to button to show processing for large csv files
-- [] Show progress bar for csv processing
+
+## Improve the design of the application.
+
+Now that the core functionality has been implemented to upload and parse CSV, I can circle back and improve the design and UI.
+
+![screen capture of new design](./READMEassets/new-design.png)
